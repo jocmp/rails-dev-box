@@ -8,9 +8,10 @@ function install {
 
 function install_rvm {
   #statements
+  echo 'Installing RVM'
   su - vagrant -c 'curl -sSL https://get.rvm.io | bash -s stable --ruby'
   su - vagrant -c 'rvm rvmrc warning ignore allGemfiles'
-  rvm use
+  rvm use ruby-2.3.1
 }
 
 function install_node {
@@ -39,4 +40,4 @@ install Vim vim
 
 install 'Nokogiri dependencies' libxml2 libxml2-dev libxslt1-dev
 
-echo "Let\'s go."
+echo "Let's go."

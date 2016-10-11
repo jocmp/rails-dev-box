@@ -1,4 +1,4 @@
-# A Virtual Machine for Ruby on Rails Core Development
+# A Virtual Machine for Ruby on Rails Development
 
 ## Introduction
 
