@@ -2,10 +2,8 @@
 
 ## Introduction
 
-**Please note this VM is not designed for Rails application development, only Rails core development.**
-
-This project automates the setup of a development environment for working on Ruby on Rails itself. Use this virtual machine to work on a pull request with everything ready to hack and run the test suites.
-
+Simple box to get started on Rails projects. While the original bootstrap shell
+was meant for rails core development, I liked their `install` function.
 ## Requirements
 
 * [VirtualBox](https://www.virtualbox.org)
@@ -27,11 +25,11 @@ After the installation has finished, you can access the virtual machine with
     host $ vagrant ssh
     Welcome to Ubuntu 14.04.2 LTS (GNU/Linux 3.13.0-55-generic x86_64)
     ...
-    vagrant@rails-dev-box:~$
+    vagrant@vagrant:~$
 
 Port 3000 in the host computer is forwarded to port 3000 in the virtual machine. Thus, applications running in the virtual machine can be accessed via localhost:3000 in the host computer. Be sure the web server is bound to the IP 0.0.0.0, instead of 127.0.0.1, so it can access all interfaces:
 
-    bin/rails server -b 0.0.0.0
+    bin/rails s -b 0.0.0.0
 
 ## What's In The Box
 
@@ -43,54 +41,28 @@ Port 3000 in the host computer is forwarded to port 3000 in the virtual machine.
 
 * Bundler
 
-* SQLite3, MySQL, and Postgres
+* Postgres
 
-* Databases and users needed to run the Active Record test suite
+* Database and user needed to run the Active Record test suite
 
-* System dependencies for nokogiri, sqlite3, mysql, mysql2, and pg
-
-* Memcached
+* System dependencies for nokogiri, pg
 
 * Redis
 
-* RabbitMQ
-
-* An ExecJS runtime
-
-## Recommended Workflow
-
-The recommended workflow is
-
-* edit in the host computer and
-
-* test within the virtual machine.
-
-Just clone your Rails fork into the rails-dev-box directory on the host computer:
-
-    host $ ls
-    bootstrap.sh MIT-LICENSE README.md Vagrantfile
-    host $ git clone git@github.com:<your username>/rails.git
+## Other notes
 
 Vagrant mounts that directory as _/vagrant_ within the virtual machine:
-
-    vagrant@rails-dev-box:~$ ls /vagrant
-    bootstrap.sh MIT-LICENSE rails README.md Vagrantfile
-
-Install gem dependencies in there:
-
-    vagrant@rails-dev-box:~$ cd /vagrant/rails
-    vagrant@rails-dev-box:/vagrant/rails$ bundle
-
+```bash
+vagrant@rails-dev-box:~$ ls /vagrant
+bootstrap.sh README.md Vagrantfile
+```
 We are ready to go to edit in the host, and test in the virtual machine.
-
-This workflow is convenient because in the host computer you normally have your editor of choice fine-tuned, Git configured, and SSH keys in place.
 
 ## Virtual Machine Management
 
 When done just log out with `^D` and suspend the virtual machine
 
     host $ vagrant suspend
-
 then, resume to hack again
 
     host $ vagrant resume
@@ -153,7 +125,3 @@ Then
     host $ vagrant up
 
 Please check the Vagrant documentation on [NFS synced folders](http://docs.vagrantup.com/v2/synced-folders/nfs.html) for more information.
-
-## License
-
-Released under the MIT License, Copyright (c) 2012–<i>ω</i> Xavier Noria.
