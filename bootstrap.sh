@@ -6,12 +6,14 @@ function install {
     apt-get -y install "$@" >/dev/null 2>&1
 }
 
-function install_rvm {
-  #statements
-  echo 'Installing RVM'
-  su - vagrant -c 'curl -sSL https://get.rvm.io | bash -s stable --ruby'
-  su - vagrant -c 'rvm rvmrc warning ignore allGemfiles'
-  rvm use ruby-2.3.1
+function install_ruby {
+  echo updating package information
+  apt-add-repository -y ppa:brightbox/ruby-ng >/dev/null 2>&1
+  apt-get -y update >/dev/null 2>&1
+
+  install Ruby ruby2.3
+  update-alternatives --set ruby /usr/bin/ruby2.3 >/dev/null 2>&1
+  update-alternatives --set gem /usr/bin/gem2.3 >/dev/null 2>&1
 }
 
 function install_node {
@@ -28,7 +30,7 @@ function install_postgres {
 
 install 'development tools' build-essential
 
-install_rvm
+install_ruby
 
 echo installing Bundler
 gem install bundler -N >/dev/null 2>&1

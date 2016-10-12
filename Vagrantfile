@@ -8,7 +8,11 @@ Vagrant.configure('2') do |config|
 
   config.vm.provision :shell, path: 'bootstrap.sh', keep_color: true
 
-  config.vm.synced_folder ".", "/vagrant", type: "rsync", rsync__exclude: [".git/"]
+  config.vm.synced_folder '.', '/vagrant', type: 'rsync', rsync__exclude: ['.git/']
+
+  # Add project file to user directory
+  # config.vm.synced_folder ".", "/home/vagrant/project", type: "rsync",
+  #   owner: "vagrant", group: "vagrant", rsync__exclude: [".git/"]
 
   config.vm.provider 'virtualbox' do |v|
     v.memory = 1024
