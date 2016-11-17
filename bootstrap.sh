@@ -28,6 +28,11 @@ function install_postgres {
   sudo -u postgres createdb -O vagrant databasename # TODO use real db name
 }
 
+function prepare_bash_profile {
+  echo >> /home/vagrant/.bashrc
+  echo 'rails() { if [[ $@ == "s" ]]; then command rails s -b 0.0.0.0 | more; else command rails "$@"; fi; }' >> /home/vagrant/.bashrc
+}
+
 install 'development tools' build-essential
 
 install_ruby
